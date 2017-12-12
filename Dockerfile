@@ -9,7 +9,7 @@ RUN apk --no-cache add ${BUILD_PACKAGES} \
 	&& mkdir -p /app \
 	&& npm install -g npm@4 \
 	&& npm install -g node-gyp \
-	&& node-gyp install
+	&& node-gyp install \
     && openntpd tzdata \
     && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
