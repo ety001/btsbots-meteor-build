@@ -10,11 +10,13 @@ RUN apk --no-cache add ${BUILD_PACKAGES} \
 	&& npm install -g npm@4 \
 	&& npm install -g node-gyp \
 	&& node-gyp install
-ADD bundle /app
-RUN cd /app/programs/server && npm install
-RUN apk --no-cache add openntpd tzdata \
+    && openntpd tzdata \
     && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
     && ntpd -n
+
+ADD bundle /app
+RUN cd /app/programs/server && npm install
+
 EXPOSE 3000
 CMD ["/app/run.sh"]
